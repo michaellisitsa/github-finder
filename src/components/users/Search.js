@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
+import GithubContext from "../../context/github/githubContext"; //bring in context
+// GithubContext passes all the global state into this function
 
-const Search = ({
-  searchUsers,
-  showClear,
-  clearUsers,
-  setAlert,
-  setAlert1,
-}) => {
+const Search = ({ setAlert, setAlert1 }) => {
+  const githubContext = useContext(GithubContext); //initialise context
+
   const [text, setText] = useState(""); //useState has default value
 
   //As Search is not a class, you need const before defining the object
@@ -17,7 +15,7 @@ const Search = ({
       setAlert("Please enter something", "light");
       setAlert1("Please enter something1:", "light");
     } else {
-      searchUsers(text);
+      githubContext.searchUsers(text); //call whatever piece of state or action associated with that context
       setText("");
     }
   };
@@ -40,8 +38,11 @@ const Search = ({
           className='btn btn-dark btn-block'
         />
       </form>
-      {showClear && (
-        <button className='btn btn-light btn-block' onClick={clearUsers}>
+      {githubContext.users.length > 0 && (
+        <button
+          className='btn btn-light btn-block'
+          onClick={githubContext.clearUsers}
+        >
           Clear
         </button>
       )}
@@ -51,9 +52,6 @@ const Search = ({
 
 //Note proptypes are placed outside the function
 Search.propTypes = {
-  searchUsers: PropTypes.func.isRequired,
-  clearUsers: PropTypes.func.isRequired,
-  showClear: PropTypes.bool.isRequired,
   setAlert: PropTypes.func.isRequired,
   setAlert1: PropTypes.func.isRequired,
 };

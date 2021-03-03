@@ -1,5 +1,6 @@
 /* Nothing more than variables of strings that
-you can call to change your state within your reducer */
+you can call to change your state within your reducer 
+similar to an enum*/
 
 export const SEARCH_USERS = "SEARCH_USERS";
 export const GET_USER = "GET_USER";
