@@ -2,7 +2,6 @@
 //eg search users, or make a request to github.
 //Right now these actions are in App.js, we will move them out of there.
 import React, { useReducer } from "react";
-import axios from "axios";
 import AlertContext from "./alertContext";
 import AlertReducer from "./alertReducer";
 
