@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
-import GithubContext from "../../context/github/githubContext"; //bring in context
-// GithubContext passes all the global state into this function
+import GithubContext from "../../context/github/githubContext"; //bring in context, GithubContext passes all the global state into this function
+import AlertContext from "../../context/alert/alertContext";
 
-const Search = ({ setAlert, setAlert1 }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext); //initialise context
+  const alertContext = useContext(AlertContext); //initialise context
 
   const [text, setText] = useState(""); //useState has default value
 
@@ -12,8 +12,7 @@ const Search = ({ setAlert, setAlert1 }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      setAlert("Please enter something", "light");
-      setAlert1("Please enter something1:", "light");
+      alertContext.setAlert("Please enter something", "light");
     } else {
       githubContext.searchUsers(text); //call whatever piece of state or action associated with that context
       setText("");
@@ -48,12 +47,6 @@ const Search = ({ setAlert, setAlert1 }) => {
       )}
     </div>
   );
-};
-
-//Note proptypes are placed outside the function
-Search.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  setAlert1: PropTypes.func.isRequired,
 };
 
 export default Search;
